@@ -6,7 +6,7 @@
     font-weight: 600;
     height: 2.5rem;
     line-height: 2.5rem;
-    width: 98%;
+    width: -webkit-fill-available;
     padding-left: 0.5em;
     padding-right: 0.5em;
     outline: 0 !important;
@@ -20,7 +20,7 @@
     font-size: 1.0rem;
     height: 2.5rem;
     line-height: 2.5rem;
-    width: 98%;
+    width: -webkit-fill-available;
     padding-left: 0.5em;
     padding-right: 0.5em;
     outline: 0 !important;
