@@ -7,6 +7,9 @@ export class BingAddressAutocomplete implements ComponentFramework.StandardContr
     private notifyOutputChanged: () => void;
     private searchBox: HTMLInputElement;
 
+    //Used to append a random string to the to the search box and search box container id field
+    private randomNum: string;
+
     private value: string;
     private street: string;
     private city: string;
@@ -28,11 +31,12 @@ export class BingAddressAutocomplete implements ComponentFramework.StandardContr
             container.innerHTML = "Please provide a valid bing api key";
             return;
         }
-
+        this.randomNum = Math.round(Math.random()*100).toString();
+	    
         this.notifyOutputChanged = notifyOutputChanged;
 
         this.searchBox = document.createElement("input");
-        this.searchBox.setAttribute("id", "searchBox");
+        this.searchBox.setAttribute("id", "searchBox" + this.randomNum);
         this.searchBox.className = "addressAutocomplete";
         this.searchBox.addEventListener("mouseenter", this.onMouseEnter.bind(this));
         this.searchBox.addEventListener("mouseleave", this.onMouseLeave.bind(this));
@@ -41,7 +45,7 @@ export class BingAddressAutocomplete implements ComponentFramework.StandardContr
             this.searchBox.setAttribute("value", context.parameters.value.raw);
         }
 
-		container.setAttribute("id", "searchBoxContainer");
+		container.setAttribute("id", "searchBoxContainer" + this.randomNum);
         container.appendChild(this.searchBox);
 
         let bingApiKey = context.parameters.bingapikey.raw;
@@ -61,7 +65,7 @@ export class BingAddressAutocomplete implements ComponentFramework.StandardContr
 				callback: () => {
                     var options = {maxResults: 5};
                     var manager = new Microsoft.Maps.AutosuggestManager(options);
-                    manager.attachAutosuggest('#searchBox', '#searchBoxContainer', (suggestionResult) => {
+                    manager.attachAutosuggest('#searchBox' + this.randomNum, '#searchBoxContainer' + this.randomNum, (suggestionResult) => {
 
                         _this.street = suggestionResult.address.addressLine;
                         _this.city = suggestionResult.address.locality;
